@@ -10,6 +10,7 @@
 		1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D30AB110D05D00D00671497 /* Foundation.framework */; };
 		1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DF5F4DF0D08C38300B7A737 /* UIKit.framework */; };
 		288765A50DF7441C002DB57D /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 288765A40DF7441C002DB57D /* CoreGraphics.framework */; };
+		9449B4441221C9CA000B00D9 /* Calendar.png in Resources */ = {isa = PBXBuildFile; fileRef = 9449B4431221C9CA000B00D9 /* Calendar.png */; };
 		94D09DAE1221B16E00F3DE5C /* CalendarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 94D09DA91221B16E00F3DE5C /* CalendarViewController.m */; };
 		94D09DAF1221B16E00F3DE5C /* EventAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 94D09DAB1221B16E00F3DE5C /* EventAppDelegate.m */; };
 		94D09DB01221B16E00F3DE5C /* RootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 94D09DAD1221B16E00F3DE5C /* RootViewController.m */; };
@@ -28,6 +29,7 @@
 		288765A40DF7441C002DB57D /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		32CA4F630368D1EE00C91783 /* Event_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Event_Prefix.pch; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* Event-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Event-Info.plist"; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.info-plist"; sourceTree = "<group>"; };
+		9449B4431221C9CA000B00D9 /* Calendar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Calendar.png; sourceTree = "<group>"; };
 		94D09DA81221B16E00F3DE5C /* CalendarViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CalendarViewController.h; sourceTree = "<group>"; };
 		94D09DA91221B16E00F3DE5C /* CalendarViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CalendarViewController.m; sourceTree = "<group>"; };
 		94D09DAA1221B16E00F3DE5C /* EventAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EventAppDelegate.h; sourceTree = "<group>"; };
@@ -103,6 +105,7 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				9449B4431221C9CA000B00D9 /* Calendar.png */,
 				94D09DB31221B18300F3DE5C /* CalendarsView.xib */,
 				94D09DB41221B18300F3DE5C /* MainWindow.xib */,
 				94D09DB51221B18300F3DE5C /* RootViewController.xib */,
@@ -168,6 +171,7 @@
 				94D09DB61221B18300F3DE5C /* CalendarsView.xib in Resources */,
 				94D09DB71221B18300F3DE5C /* MainWindow.xib in Resources */,
 				94D09DB81221B18300F3DE5C /* RootViewController.xib in Resources */,
+				9449B4441221C9CA000B00D9 /* Calendar.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
