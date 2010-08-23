@@ -63,12 +63,9 @@
 		080E96DDFE201D6D7F000001 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
-				94D09DA81221B16E00F3DE5C /* CalendarViewController.h */,
-				94D09DA91221B16E00F3DE5C /* CalendarViewController.m */,
+				94C9CEA4122323AE00C7F917 /* Controllers */,
 				94D09DAA1221B16E00F3DE5C /* EventAppDelegate.h */,
 				94D09DAB1221B16E00F3DE5C /* EventAppDelegate.m */,
-				94D09DAC1221B16E00F3DE5C /* RootViewController.h */,
-				94D09DAD1221B16E00F3DE5C /* RootViewController.m */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -124,6 +121,17 @@
 				288765A40DF7441C002DB57D /* CoreGraphics.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		94C9CEA4122323AE00C7F917 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				94D09DA81221B16E00F3DE5C /* CalendarViewController.h */,
+				94D09DA91221B16E00F3DE5C /* CalendarViewController.m */,
+				94D09DAC1221B16E00F3DE5C /* RootViewController.h */,
+				94D09DAD1221B16E00F3DE5C /* RootViewController.m */,
+			);
+			name = Controllers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
