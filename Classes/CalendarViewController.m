@@ -62,7 +62,6 @@
     return section == 0 ? @"Local" : @"Other";
 }
 
-// This one needs a rewrite.
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return section == 0 ? [self._localCalendars count] : [self._otherCalendars count];
 }
