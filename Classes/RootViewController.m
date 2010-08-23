@@ -41,6 +41,11 @@
     [self reloadEvents];
 }
 
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
+{
+    return YES;
+}
+
 - (void)reloadEvents {
     CFGregorianDate gregorianStartDate, gregorianEndDate;
     CFGregorianUnits startUnits = {-1, 0, 0, 0, 0, 0};
