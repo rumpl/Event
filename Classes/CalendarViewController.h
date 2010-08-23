@@ -21,16 +21,19 @@
 
 @interface CalendarViewController : UITableViewController {
 @private
-    NSArray *_calendars;
+    NSMutableArray *_localCalendars;
+    NSMutableArray *_otherCalendars;
     EKEventStore *_eventStore;
     
 @public
-    id delegate;
+    id <CalendarViewControllerDelegate> delegate;
 }
 
-@property (retain, nonatomic) NSArray *_calendars;
-@property (nonatomic, retain) EKEventStore* _eventStore;
-@property (nonatomic, retain) id delegate;
+@property (nonatomic, retain) EKEventStore *_eventStore;
+@property (nonatomic, retain) NSMutableArray *_localCalendars;
+@property (nonatomic, retain) NSMutableArray *_otherCalendars;
+
+@property (nonatomic, assign) id delegate;
 @end
 
 @protocol CalendarViewControllerDelegate

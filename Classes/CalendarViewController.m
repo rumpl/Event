@@ -18,7 +18,7 @@
 
 @implementation CalendarViewController
 
-@synthesize _calendars, _eventStore, delegate;
+@synthesize _eventStore, _localCalendars, _otherCalendars, delegate;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -29,13 +29,21 @@
     [[self navigationItem] setRightBarButtonItem:doneButton];
     
     self._eventStore = [[EKEventStore alloc] init];
-    self._calendars = [self._eventStore calendars];
+    self._localCalendars = [[NSMutableArray alloc] init];
+    self._otherCalendars = [[NSMutableArray alloc] init];
+    
+    for(id cal in [self._eventStore calendars]) {
+        if([cal type] == EKCalendarTypeLocal) {
+            [self._localCalendars addObject:[cal title]];
+        }
+        else {
+            [self._otherCalendars addObject:[cal title]];
+        }
+    }
 }
 
 - (void) done {
-    if([[self delegate] respondsToSelector:@selector(didFinish)]) {
-        [[self delegate] didFinish];
-    }
+    [[self delegate] didFinish];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -47,22 +55,16 @@
 #pragma mark Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return [self._calendars count];
+    return 2;
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
-    id cal = [self._calendars objectAtIndex:section];
-    
-    if([cal type] ==  EKCalendarTypeLocal) {
-        return @"Local";
-    }
-    
-    return @"Other";
+    return section == 0 ? @"Local" : @"Other";
 }
 
 // This one needs a rewrite.
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 1;
+    return section == 0 ? [self._localCalendars count] : [self._otherCalendars count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -72,17 +74,19 @@
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
         cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
-        //cell.accessoryType = UITableViewCellAccessoryCheckmark;
     }
     
-    id ev = [self._calendars objectAtIndex:(indexPath.section + indexPath.row)];
-    cell.textLabel.text = [ev title];
+    id calendars = indexPath.section == 0 ? self._localCalendars : self._otherCalendars;
+    id ev = [calendars objectAtIndex:indexPath.row];
+    cell.textLabel.text = ev;
     
     return cell;
 }
 
 - (void)dealloc {
     [self._eventStore release];
+    [self._localCalendars release];
+    [self._otherCalendars release];
     
     [super dealloc];
 }
