@@ -35,7 +35,7 @@
     
     UIBarButtonItem *calendarsButton = [[[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Calendars", @"") style:UIBarButtonItemStyleBordered  target:self action:@selector(goToCalendars:)] autorelease];
     [[self navigationItem] setLeftBarButtonItem:calendarsButton];
-
+    
     _eventStore = [[EKEventStore alloc] init];
     
     [self reloadEvents];
@@ -133,14 +133,23 @@
 }
 
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
-    id cell = [_events objectAtIndex:indexPath.row];
-    NSError *error;
-    
-    [[self _eventStore] removeEvent:cell span:EKSpanThisEvent error:&error];
-    [self reloadEvents];
-    [tableView beginUpdates];
-    [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    [tableView endUpdates];
+    if(editingStyle == UITableViewCellEditingStyleDelete) {
+        id cell = [_events objectAtIndex:indexPath.row];
+        NSError *error;
+        
+        if([[self _eventStore] removeEvent:cell span:EKSpanThisEvent error:&error] == NO) {
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Huston" message:@"Whoops! Something went wrong..." 
+                                                           delegate:nil cancelButtonTitle:@"Nevermind" otherButtonTitles:nil];
+            [alert show];
+            [alert release];
+        }
+        else {
+            [self reloadEvents];
+            [tableView beginUpdates];
+            [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
+            [tableView endUpdates];
+        }
+    }
 }
 
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
