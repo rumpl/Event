@@ -30,10 +30,10 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    UIBarButtonItem *homeButton = [[[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Add", @"") style:UIBarButtonItemStyleBordered  target:self action:@selector(addEvent:)] autorelease];
+    UIBarButtonItem *homeButton = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Add", @"") style:UIBarButtonItemStyleBordered  target:self action:@selector(addEvent:)];
     [[self navigationItem] setRightBarButtonItem:homeButton];
     
-    UIBarButtonItem *calendarsButton = [[[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Calendars", @"") style:UIBarButtonItemStyleBordered  target:self action:@selector(goToCalendars:)] autorelease];
+    UIBarButtonItem *calendarsButton = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Calendars", @"") style:UIBarButtonItemStyleBordered  target:self action:@selector(goToCalendars:)];
     [[self navigationItem] setLeftBarButtonItem:calendarsButton];
     
     _eventStore = [[EKEventStore alloc] init];
@@ -41,8 +41,7 @@
     [self reloadEvents];
 }
 
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
-{
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
     return YES;
 }
 
@@ -76,9 +75,8 @@
     controller.eventStore = _eventStore;
     controller.editViewDelegate = self;
     
-    [self presentModalViewController: controller animated:YES];
+    [self presentViewController:controller animated:YES completion:nil];
     
-    [controller release]; 
 }
 
 - (void)goToCalendars: (id)sender {
@@ -86,20 +84,18 @@
     controller.delegate = self;
     
     UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:controller];
-    [self presentModalViewController:nav animated:YES];
+    [self presentViewController:nav animated:YES completion:nil];
     
-    [controller release];
-    [nav release];
 }
 
 - (void)didFinish {
-    [self dismissModalViewControllerAnimated:YES];
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (void)eventEditViewController:(EKEventEditViewController *)controller didCompleteWithAction:(EKEventEditViewAction)action {
     [self reloadEvents];
     [self.tableView reloadData];
-    [self dismissModalViewControllerAnimated:YES];
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -118,15 +114,14 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    
     static NSString *CellIdentifier = @"Cell";
     
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
-        cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
     }
     
-    id ev = [_events objectAtIndex:indexPath.row];
+    id ev = _events[indexPath.row];
     cell.textLabel.text = [ev title];
     
     return cell;
@@ -134,19 +129,18 @@
 
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
     if(editingStyle == UITableViewCellEditingStyleDelete) {
-        id cell = [_events objectAtIndex:indexPath.row];
+        id cell = _events[indexPath.row];
         NSError *error;
         
         if([[self _eventStore] removeEvent:cell span:EKSpanThisEvent error:&error] == NO) {
             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Huston" message:@"Whoops! Something went wrong..." 
                                                            delegate:nil cancelButtonTitle:@"Nevermind" otherButtonTitles:nil];
             [alert show];
-            [alert release];
         }
         else {
             [self reloadEvents];
             [tableView beginUpdates];
-            [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
+            [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
             [tableView endUpdates];
         }
     }
@@ -163,10 +157,9 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     EKEventEditViewController* controller = [[EKEventEditViewController alloc] init];
     controller.eventStore = _eventStore;
-    controller.event = [[self _events] objectAtIndex:indexPath.row];
+    controller.event = [self _events][indexPath.row];
     controller.editViewDelegate = self;
-    [self presentModalViewController: controller animated:YES];
-    [controller release];
+    [self presentViewController:controller animated:YES completion:nil];
 }
 
 #pragma mark -
@@ -174,16 +167,6 @@
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-}
-
-- (void)viewDidUnload {
-}
-
-- (void)dealloc {
-    [_events release];
-    [_eventStore release];
-    
-    [super dealloc];
 }
 
 @end

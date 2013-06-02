@@ -26,8 +26,8 @@
   EKEventStore* _eventStore;
 }
 
-@property (nonatomic, retain) NSArray* _events;
-@property (nonatomic, retain) EKEventStore* _eventStore;
+@property (nonatomic, strong) NSArray* _events;
+@property (nonatomic, strong) EKEventStore* _eventStore;
 
 - (void)addEvent: (id)sender;
 - (void)goToCalendars: (id)sender;

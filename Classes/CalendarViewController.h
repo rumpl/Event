@@ -26,14 +26,14 @@
     EKEventStore *_eventStore;
     
 @public
-    id <CalendarViewControllerDelegate> delegate;
+    id <CalendarViewControllerDelegate> __weak delegate;
 }
 
-@property (nonatomic, retain) EKEventStore *_eventStore;
-@property (nonatomic, retain) NSMutableArray *_localCalendars;
-@property (nonatomic, retain) NSMutableArray *_otherCalendars;
+@property (nonatomic, strong) EKEventStore *_eventStore;
+@property (nonatomic, strong) NSMutableArray *_localCalendars;
+@property (nonatomic, strong) NSMutableArray *_otherCalendars;
 
-@property (nonatomic, assign) id delegate;
+@property (nonatomic, weak) id delegate;
 @end
 
 @protocol CalendarViewControllerDelegate

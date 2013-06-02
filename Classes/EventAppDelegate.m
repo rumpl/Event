@@ -27,46 +27,20 @@
 - (void)awakeFromNib {  
 }
 
-- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {    
-  [window addSubview:navigationController.view];
-  [window makeKeyAndVisible];
+- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+    window.rootViewController = navigationController;
+    [window makeKeyAndVisible];
   
-  return YES;
-}
-
-- (void)applicationWillResignActive:(UIApplication *)application {
-}
-
-- (void)applicationDidEnterBackground:(UIApplication *)application {
-}
-
-- (void)applicationWillEnterForeground:(UIApplication *)application {
-}
-
-- (void)applicationDidBecomeActive:(UIApplication *)application {
-}
-
-- (void)applicationWillTerminate:(UIApplication *)application {
+    return YES;
 }
 
 #pragma mark -
 #pragma mark Application's Documents directory
 
 - (NSString *)applicationDocumentsDirectory {
-  return [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject];
+    return [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject];
 }
 
-#pragma mark -
-#pragma mark Memory management
-
-- (void)applicationDidReceiveMemoryWarning:(UIApplication *)application {
-}
-
-- (void)dealloc {
-  [navigationController release];
-  [window release];
-  [super dealloc];
-}
 
 @end
 

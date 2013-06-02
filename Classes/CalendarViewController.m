@@ -25,18 +25,18 @@
 
     [self.navigationItem setTitle:@"Calendars"];
     
-    UIBarButtonItem *doneButton = [[[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Done", @"") style:UIBarButtonItemStyleDone  target:self action:@selector(done)] autorelease];
+    UIBarButtonItem *doneButton = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Done", @"") style:UIBarButtonItemStyleDone  target:self action:@selector(done)];
     [[self navigationItem] setRightBarButtonItem:doneButton];
     
     self._eventStore = [[EKEventStore alloc] init];
     self._localCalendars = [[NSMutableArray alloc] init];
     self._otherCalendars = [[NSMutableArray alloc] init];
     
-    for(id cal in [self._eventStore calendars]) {
+    
+    for(EKCalendar *cal in [self._eventStore calendarsForEntityType:EKEntityTypeEvent]) {
         if([cal type] == EKCalendarTypeLocal) {
             [self._localCalendars addObject:[cal title]];
-        }
-        else {
+        } else {
             [self._otherCalendars addObject:[cal title]];
         }
     }
@@ -46,8 +46,7 @@
     [[self delegate] didFinish];
 }
 
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
-{
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
     return YES;
 }
 
@@ -72,22 +71,14 @@
     
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
-        cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
     }
     
     id calendars = indexPath.section == 0 ? self._localCalendars : self._otherCalendars;
-    id ev = [calendars objectAtIndex:indexPath.row];
+    id ev = calendars[indexPath.row];
     cell.textLabel.text = ev;
     
     return cell;
-}
-
-- (void)dealloc {
-    [self._eventStore release];
-    [self._localCalendars release];
-    [self._otherCalendars release];
-    
-    [super dealloc];
 }
 
 @end
